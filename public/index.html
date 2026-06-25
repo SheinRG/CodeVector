@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Browser · CodeVector</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <span class="brand-mark">◆</span>
+          <div>
+            <h1>Product Browser</h1>
+            <p class="subtitle">200,000 products · newest first · keyset pagination</p>
+          </div>
+        </div>
+
+        <div class="controls">
+          <label class="field">
+            <span>Category</span>
+            <select id="category">
+              <option value="">All categories</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Page size</span>
+            <select id="limit">
+              <option value="12">12</option>
+              <option value="24" selected>24</option>
+              <option value="48">48</option>
+              <option value="96">96</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="meta-row">
+        <span id="status" class="status">Loading…</span>
+      </div>
+
+      <section id="grid" class="grid" aria-live="polite"></section>
+
+      <div class="footer-zone">
+        <button id="loadMore" class="load-more" hidden>Load more</button>
+        <p id="endMsg" class="end-msg" hidden>You've reached the end.</p>
+        <div id="spinner" class="spinner" hidden></div>
+      </div>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

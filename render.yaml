@@ -1,0 +1,16 @@
+# Render Blueprint. You can either:
+#   (a) point Render at this repo and it auto-detects this file, or
+#   (b) create a Web Service manually with the same Build/Start commands below.
+services:
+  - type: web
+    name: codevector-products
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      # Paste your Supabase connection string in the Render dashboard.
+      # (sync:false means "don't store it in the repo — I'll set it in the UI".)
+      - key: DATABASE_URL
+        sync: false
