@@ -4,7 +4,7 @@ A small backend that lets you browse ~200,000 products **newest first**, **filte
 by category**, and **paginate** — quickly, and *correctly even while the data is
 changing underneath you*.
 
-- **Live URL:** _(add your Render URL here after deploying)_
+- **Live URL:** https://codevector-76pn.onrender.com/ (UI at `/`, API under `/api`)
 - **Stack:** Node.js + Express, Supabase (Postgres), plain `pg` driver (no ORM).
 - **UI:** a small static page served by the same server (`/`).
 
