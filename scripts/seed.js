@@ -100,6 +100,10 @@ async function main() {
     }
   }
 
+  // 4. Refresh the planner's table statistics. This keeps query plans optimal
+  //    and makes pg_class.reltuples (our fast approximate count) accurate.
+  await pool.query("ANALYZE products");
+
   const secs = ((Date.now() - start) / 1000).toFixed(1);
   console.log(`Done in ${secs}s.`);
   await pool.end();

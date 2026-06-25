@@ -4,56 +4,93 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product Browser · CodeVector</title>
+    <meta
+      name="description"
+      content="Browse 200,000 products, newest first, with fast keyset pagination."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- ---------------------------------------------------------------- Header -->
     <header class="topbar">
       <div class="topbar-inner">
         <div class="brand">
           <span class="brand-mark">◆</span>
-          <div>
+          <div class="brand-text">
             <h1>Product Browser</h1>
-            <p class="subtitle">200,000 products · newest first · keyset pagination</p>
+            <p class="subtitle">
+              <span id="totalStat" class="total-stat">…</span> products ·
+              newest first
+            </p>
           </div>
         </div>
 
         <div class="controls">
           <label class="field">
             <span>Category</span>
-            <select id="category">
-              <option value="">All categories</option>
-            </select>
+            <div class="select-wrap">
+              <select id="category">
+                <option value="">All categories</option>
+              </select>
+            </div>
           </label>
           <label class="field">
-            <span>Page size</span>
-            <select id="limit">
-              <option value="12">12</option>
-              <option value="24" selected>24</option>
-              <option value="48">48</option>
-              <option value="96">96</option>
-            </select>
+            <span>Per page</span>
+            <div class="select-wrap">
+              <select id="limit">
+                <option value="12">12</option>
+                <option value="24" selected>24</option>
+                <option value="48">48</option>
+                <option value="96">96</option>
+              </select>
+            </div>
           </label>
         </div>
       </div>
     </header>
 
     <main class="container">
+      <!-- A thin strip that surfaces the backend: count, latency, page no. -->
       <div class="meta-row">
         <span id="status" class="status">Loading…</span>
+        <div class="metrics">
+          <span class="pill" id="latencyPill" hidden>
+            <span class="pill-dot"></span>
+            db <span id="latency">–</span> ms
+          </span>
+          <span class="pill pill-muted" id="pagePill" hidden>
+            page <span id="pageNum">0</span>
+          </span>
+        </div>
       </div>
 
       <section id="grid" class="grid" aria-live="polite"></section>
 
       <div class="footer-zone">
-        <button id="loadMore" class="load-more" hidden>Load more</button>
+        <span id="spinner" class="spinner-row" hidden>
+          <span class="spinner"></span>
+          fetching next page…
+        </span>
         <p id="endMsg" class="end-msg" hidden>You've reached the end.</p>
-        <div id="spinner" class="spinner" hidden></div>
+        <p id="emptyMsg" class="empty-msg" hidden>
+          No products match this filter.
+        </p>
       </div>
+
+      <!-- The actual keyset cursor, shown so the mechanic is visible. -->
+      <footer class="cursor-bar" id="cursorBar" hidden>
+        <span class="cursor-label">active cursor</span>
+        <code id="cursorVal">—</code>
+      </footer>
+
+      <!-- Infinite-scroll sentinel: loads the next page as it nears the view. -->
+      <div id="sentinel" aria-hidden="true"></div>
     </main>
 
     <script src="app.js"></script>
